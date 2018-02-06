@@ -9,7 +9,7 @@
   ],
   "activationCommands": {
     "atom-workspace": [
-      "majournal:newEntry"
+      "majournal:new-entry"
     ]
   },
   "repository": "https://github.com/malonehedges/majournal",

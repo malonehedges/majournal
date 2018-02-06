@@ -30,3 +30,5 @@
 **2/5/2018, 8:39:16 PM**: It is strange what is tedious about Atom package development and what isn't
 
 **2/5/2018, 8:40:18 PM**: Configuration is working
+
+**2/5/2018, 8:43:10 PM**: Fixed the command's name so it is properly Title Cased
