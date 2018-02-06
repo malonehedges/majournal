@@ -3,6 +3,13 @@ path = require 'path'
 
 module.exports = Journal =
 
+  config:
+    journalFile:
+      title: 'Journal File'
+      description: 'What file should be used as the journal in each project?'
+      type: 'string'
+      default: 'JOURNAL.md'
+
   activate: (state) ->
     @disposables = new CompositeDisposable
 
@@ -23,8 +30,8 @@ module.exports = Journal =
         if dir.contains(currentFilePath)
           projectRootPath = dir.path
 
-      # TODO: Make this filename configurable
-      journalPath = path.join projectRootPath, 'JOURNAL.md'
+      journalFile = atom.config.get('majournal.journalFile')
+      journalPath = path.join projectRootPath, journalFile
       journalPath
     catch e
       console.error('Failed to get the path for the journal', e)
