@@ -22,3 +22,5 @@
 **2/5/2018, 7:57:18 PM**: working on error notifications
 
 **2/5/2018, 8:04:06 PM**: errors working, still have the bug with half-opened windows
+
+**2/5/2018, 8:10:41 PM**: Uploaded everything to GitHub and successfully installed using the command `apm install malonehedges/journal`
