@@ -32,3 +32,5 @@
 **2/5/2018, 8:40:18 PM**: Configuration is working
 
 **2/5/2018, 8:43:10 PM**: Fixed the command's name so it is properly Title Cased
+
+**2/5/2018, 8:46:30 PM**: Just published. That was so incredibly easy to do.

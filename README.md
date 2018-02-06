@@ -8,13 +8,14 @@ This was forked because while [the original](https://github.com/groktools/journa
 
 ## Installation
 
-You can install directly from GitHub using the following command:
+You can install directly from Atom's package manager, using the command line, or directly from GitHub. CLI examples are below:
 
 ```sh
+# From Atom.io directory
+apm install majournal
+# From GitHub
 apm install malonehedges/majournal
 ```
-
-Installing from the official directory is coming soon.
 
 ## Usage
 
