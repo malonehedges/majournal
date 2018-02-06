@@ -1,2 +1,2 @@
 'atom-workspace':
-  'ctrl-alt-e': 'journal:newEntry'
+  'ctrl-alt-e': 'majournal:newEntry'

@@ -1,4 +1,4 @@
-# journal
+# majournal
 
 Journal while programming.
 
@@ -8,11 +8,13 @@ This was forked because while [the original](https://github.com/groktools/journa
 
 ## Installation
 
-To keep things simple, I'm not currently planning on publishing to the Atom directory. You can install using the following command:
+You can install directly from GitHub using the following command:
 
 ```sh
-apm install malonehedges/journal
+apm install malonehedges/majournal
 ```
+
+Installing from the official directory is coming soon.
 
 ## Usage
 

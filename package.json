@@ -1,17 +1,18 @@
 {
-  "name": "journal",
+  "name": "majournal",
   "main": "./lib/journal",
   "version": "0.2.0",
-  "description": "A simple journal package. Allows you to create journal entries in a markdown file",
+  "description": "Journal while programming.",
   "keywords": [
+    "majournal",
     "journal"
   ],
   "activationCommands": {
     "atom-workspace": [
-      "journal:newEntry"
+      "majournal:newEntry"
     ]
   },
-  "repository": "https://github.com/malonehedges/journal",
+  "repository": "https://github.com/malonehedges/majournal",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"

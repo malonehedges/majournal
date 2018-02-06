@@ -24,3 +24,9 @@
 **2/5/2018, 8:04:06 PM**: errors working, still have the bug with half-opened windows
 
 **2/5/2018, 8:10:41 PM**: Uploaded everything to GitHub and successfully installed using the command `apm install malonehedges/journal`
+
+**2/5/2018, 8:29:45 PM**: Going to go ahead and publish everything to atom.io and a new GitHub repo - easier to do than I thought it'd be
+
+**2/5/2018, 8:39:16 PM**: It is strange what is tedious about Atom package development and what isn't
+
+**2/5/2018, 8:40:18 PM**: Configuration is working

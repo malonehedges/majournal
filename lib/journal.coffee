@@ -8,7 +8,7 @@ module.exports = Journal =
 
     # Register command makes a new journal entry
     @disposables.add atom.commands.add 'atom-workspace',
-      'journal:newEntry': => @newEntry()
+      'majournal:newEntry': => @newEntry()
 
   deactivate: ->
     @disposables.dispose()
