@@ -1,71 +1,62 @@
-# JournalView = require './journal-view'
-{CompositeDisposable} = require 'atom'
-{Point} = require 'atom'
+{ CompositeDisposable } = require 'atom'
 path = require 'path'
-fs = require 'fs'
 
 module.exports = Journal =
-  # journalView: null
-  # modalPanel: null
-  subscriptions: null
-  journalFile: null
 
   activate: (state) ->
-    console.log "journal activated"
-    # @journalView = new JournalView(state.journalViewState)
-    # @modalPanel = atom.workspace.addModalPanel(item: @journalView.getElement(), visible: false)
+    @disposables = new CompositeDisposable
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
-    @subscriptions = new CompositeDisposable
-
-    # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'journal:createOrOpen': => @createOrOpen()
-    @subscriptions.add atom.commands.add 'atom-workspace', 'journal:newEntry': => @newEntry()
-    @journalFile = ''
+    # Register command makes a new journal entry
+    @disposables.add atom.commands.add 'atom-workspace',
+      'journal:newEntry': => @newEntry()
 
   deactivate: ->
-    # @modalPanel.destroy()
-    @subscriptions.dispose()
-    # @journalView.destroy()
+    @disposables.dispose()
 
-  serialize: ->
-    # journalViewState: @journalView.serialize()
+  getJournalPath: ->
+    try
+      currentFilePath = atom.workspace.getActivePaneItem().getPath()
+      projectRootPath = ''
 
-  # toggle: ->
-  #   console.log 'Journal was toggled!'
-  #
-  #   if @modalPanel.isVisible()
-  #     @modalPanel.hide()
-  #   else
-  #     @modalPanel.show()
+      # Go through all project root directories to find the correct one
+      atom.project.getDirectories().forEach (dir) ->
+        if dir.contains(currentFilePath)
+          projectRootPath = dir.path
 
-  createOrOpen: ->
-    console.log "journal opened or created"
-    @createFileIfNotAlreadyExists()
-    @openEditorIfNotAlreadyOpen()
+      # TODO: Make this filename configurable
+      journalPath = path.join projectRootPath, 'JOURNAL.md'
+      journalPath
+    catch e
+      console.error('Failed to get the path for the journal', e)
+      null
 
   newEntry: ->
-    # console.log "new entry called"
-    @openEditorIfNotAlreadyOpen()
-    if editor = atom.workspace.getActiveTextEditor()
-      lastRow = editor.getLastBufferRow()
-      editor.setCursorBufferPosition(new Point(lastRow,0))
-      editor.moveToEndOfLine()
-      editor.insertNewline()
-      editor.insertText("**#{new Date().toLocaleString()}**: ")
+    try
+      # Get journal path
+      journalPath = @getJournalPath()
 
-  createFileIfNotAlreadyExists: ->
-    journalLoc = atom.project.getPaths()[0]
-    # journalLoc = atom.project.getRepositories()[0]?.getWorkingDirectory()
-    @journalFile = path.join journalLoc, 'journal.md'
-    console.log "create or open called on repo: #{@journalFile}"
-    if !fs.existsSync @journalFile
-      fs.openSync @journalFile, 'a'
-    console.log 'jf: #{@journalFile}'
+      if journalPath == null
+        atom.notifications.addError 'Failed to get the journal path',
+          detail: 'Try opening another file and running the command again.\nCheck the console for more details.'
+        return
 
-  openEditorIfNotAlreadyOpen: ->
-    jpane = atom.workspace.paneForURI(@journalFile)
-    if jpane == undefined
-      atom.workspace.open(@journalFile,{searchAllPanes:true}).then (editor) -> editor.focus()
-    else
-      jitem = jpane.activateItemForURI(@journalFile)
+      # See if there is a pane open for it already
+      # (This will create the file if it doesn't exist)
+      atom.workspace.open(journalPath, { searchAllPanes: true }).then (editor) ->
+        lastRow = editor.getLastBufferRow()
+        editor.setCursorBufferPosition([lastRow, 0])
+        editor.moveToEndOfLine()
+
+        # Insert newline only if there isn't already a newline at the end of the file
+        if editor.lineTextForBufferRow(lastRow).trim().length > 0
+          editor.insertNewline()
+
+        editor.insertNewline()
+        editor.insertText("**#{new Date().toLocaleString()}**: ")
+        editor.insertNewline()
+        editor.moveLeft()
+
+    catch error
+      atom.notifications.addError 'Failed to create a new journal entry',
+        detail: error.message
+        stack: error.stack
