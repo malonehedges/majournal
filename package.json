@@ -1,7 +1,7 @@
 {
   "name": "majournal",
   "main": "./lib/journal",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Journal while programming.",
   "keywords": [
     "majournal",
