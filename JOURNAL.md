@@ -34,3 +34,5 @@
 **2/5/2018, 8:43:10 PM**: Fixed the command's name so it is properly Title Cased
 
 **2/5/2018, 8:46:30 PM**: Just published. That was so incredibly easy to do.
+
+**2/5/2018, 11:49:22 PM**: Added more code so it'll find the path in basically every scenario. Can't think of when it wouldn't work off the top of my head
